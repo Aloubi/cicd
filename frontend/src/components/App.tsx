@@ -33,7 +33,7 @@ function App() {
   };
 
   const handleDelete = async (id: number) => {
-    await fetch(`http://localhost:3000/api/tasks/${id}`, {
+    await fetch(`http://localhost:3001/api/tasks/${id}`, {
       method: 'DELETE',
     });
     setTasks(tasks.filter((task) => task.id !== id));
