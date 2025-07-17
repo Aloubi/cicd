@@ -24,16 +24,19 @@ jobs:
 
       - name: Install dependencies
         run: npm install
+        working-directory: todo-app/backend
 
       - name: Give execute permission to jest
         run: chmod +x ./node_modules/.bin/jest
+        working-directory: todo-app/backend
 
       - name: Run tests and generate coverage
         run: npm run test
+        working-directory: todo-app/backend
 
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@v2
         with:
-          projectBaseDir: .
+          projectBaseDir: todo-app/backend
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
