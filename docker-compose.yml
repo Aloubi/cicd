@@ -1,29 +1,4 @@
-version: '3.9'
-
 services:
-  backend:
-    build: ./backend
-    container_name: todo-backend
-    ports:
-      - "3001:3001"
-    depends_on:
-      - db
-    environment:
-      - DB_HOST=db
-      - DB_USER=postgres
-      - DB_PASSWORD=postgres
-      - DB_NAME=postgres
-    command: npm start
-
-  frontend:
-    build: ./frontend
-    container_name: todo-frontend
-    ports:
-      - "5173:5173"
-    depends_on:
-      - backend
-    command: npm run dev -- --host
-
   db:
     image: postgres:15
     container_name: todo-db
@@ -35,6 +10,37 @@ services:
       - "5432:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  backend:
+    build: ./backend
+    container_name: todo-backend
+    ports:
+      - "3001:3001"
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      - DB_HOST=db
+      - DB_USER=postgres
+      - DB_PASSWORD=postgres
+      - DB_NAME=postgres
+    command: npm start
+    restart: unless-stopped
+
+  frontend:
+    build: ./frontend
+    container_name: todo-frontend
+    ports:
+      - "5173:80"
+    depends_on:
+      - backend
+    restart: unless-stopped
 
 volumes:
   pgdata:
