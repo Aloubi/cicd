@@ -13,7 +13,7 @@ function App() {
 
   // Récupérer les tâches depuis le backend
   useEffect(() => {
-    fetch('http://localhost:3000/api/tasks')
+    fetch('http://localhost:3001/api/tasks')
       .then((res) => res.json())
       .then((data) => setTasks(data))
       .catch((err) => console.error("Erreur lors du fetch :", err));
@@ -22,7 +22,7 @@ function App() {
   const handleAddTask = async (text: string) => {
     const newTask = { text, completed: false };
 
-    const response = await fetch('http://localhost:3000/api/tasks', {
+    const response = await fetch('http://localhost:3001/api/tasks', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(newTask),
@@ -43,7 +43,7 @@ function App() {
     const updatedTask = tasks.find((t) => t.id === id);
     if (!updatedTask) return;
 
-    const response = await fetch(`http://localhost:3000/api/tasks/${id}`, {
+    const response = await fetch(`http://localhost:3001/api/tasks/${id}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ ...updatedTask, completed: !updatedTask.completed }),
