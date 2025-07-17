@@ -1,35 +1,36 @@
-name: CI - Build Node & React
+name: CI + SonarCloud
 
 on:
   push:
-    branches: [main]
+    branches:
+      - main
   pull_request:
-    branches: [main]
+    types: [opened, synchronize, reopened]
 
 jobs:
   build:
+    name: Build and Analyze
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
-      - name: Use Node.js 18
-        uses: actions/setup-node@v3
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: 18
 
-      - name: Install dependencies (frontend)
-        run: |
-          cd frontend
-          npm ci
+      - name: Install dependencies
+        run: npm install
+        working-directory: ./backend
 
-      - name: Fix vite permissions
-        run: |
-          cd frontend/node_modules/.bin
-          chmod +x vite
+      - name: Run tests and generate coverage
+        run: npm run test
+        working-directory: ./backend
 
-      - name: Build frontend
-        run: |
-          cd frontend
-          npm run build
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@v2
+        with:
+          projectBaseDir: ./backend
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
