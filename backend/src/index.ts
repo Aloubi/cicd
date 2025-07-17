@@ -1,9 +1,12 @@
 import express from 'express';
+import cors from 'cors';
 import taskRoutes from './routes/task.routes';
 import { sequelize } from './sequelize';
 import { Task } from './models/task.model';
 
+
 const app = express();
+app.use(cors());
 app.use(express.json());
 
 // Synchronise la base : crée les tables automatiquement
