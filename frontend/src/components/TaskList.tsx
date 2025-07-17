@@ -2,7 +2,7 @@ import React from 'react';
 
 type Task = {
   id: number;
-  text: string;
+  title: string; // correction ici
   completed: boolean;
 };
 
@@ -23,7 +23,7 @@ function TaskList({ tasks, onDelete, onToggle }: Props) {
             onChange={() => onToggle(task.id)}
           />
           <span style={{ textDecoration: task.completed ? 'line-through' : 'none' }}>
-            {task.text}
+            {task.title}
           </span>
           <button onClick={() => onDelete(task.id)}>❌</button>
         </li>
