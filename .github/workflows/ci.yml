@@ -22,13 +22,19 @@ jobs:
         with:
           node-version: '18'
 
+      - name: Change directory to backend
+        run: cd backend
+
       - name: Install dependencies
+        working-directory: backend
         run: npm install
 
       - name: Give execute permission to jest
+        working-directory: backend
         run: chmod +x ./node_modules/.bin/jest
 
       - name: Run tests and generate coverage
+        working-directory: backend
         run: npm run test
 
       - name: SonarCloud Scan
@@ -42,3 +48,4 @@ jobs:
             -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        working-directory: backend
