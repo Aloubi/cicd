@@ -2,16 +2,18 @@ name: Build and Analyze
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
   pull_request:
-    branches:
-      - main
+    branches: [main]
 
 jobs:
   build:
     name: Build and Analyze
     runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: ./todo-app/backend
 
     steps:
       - name: Checkout repository
@@ -24,25 +26,13 @@ jobs:
 
       - name: Install dependencies
         run: npm install
-        working-directory: backend
 
-      - name: Give execute permission to jest
-        run: chmod +x ./node_modules/.bin/jest
-        working-directory: backend
-
-      - name: Run tests and generate coverage
-        run: npm run test
-        working-directory: backend
+      - name: Run tests with coverage
+        run: npx jest --coverage
 
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@v2
         with:
-          args: >
-            -Dsonar.projectKey=Aloubi_cicd
-            -Dsonar.organization=aloubi
-            -Dsonar.sources=src
-            -Dsonar.tests=src/tests
-            -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
+          projectBaseDir: ./todo-app/backend
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        working-directory: backend
