@@ -63,3 +63,6 @@ export const deleteTask = async (req: Request, res: Response) => {
     return res.status(500).json({ error: 'Failed to delete task' });
   }
 };
+export const sayHello = () => {
+  return 'Hello from controller';
+};

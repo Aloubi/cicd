@@ -27,15 +27,17 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Give execute permission to jest
-        run: chmod +x ./node_modules/.bin/jest
-
       - name: Run tests with coverage
         run: npm run test
 
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@v2
         with:
-          projectBaseDir: backend
+          args: >
+            -Dsonar.projectKey=Aloubi_cicd
+            -Dsonar.organization=aloubi
+            -Dsonar.sources=src
+            -Dsonar.tests=src/tests
+            -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
