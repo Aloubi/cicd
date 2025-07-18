@@ -13,7 +13,7 @@ jobs:
 
     defaults:
       run:
-        working-directory: ./todo-app/backend
+        working-directory: backend
 
     steps:
       - name: Checkout repository
@@ -28,11 +28,11 @@ jobs:
         run: npm install
 
       - name: Run tests with coverage
-        run: npx jest --coverage
+        run: npm run test
 
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@v2
         with:
-          projectBaseDir: ./todo-app/backend
+          projectBaseDir: backend
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
