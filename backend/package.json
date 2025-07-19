@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "dist/index.js",
   "scripts": {
-    "test": "jest --coverage",
+    "test": "node ./node_modules/jest/bin/jest.js --coverage",
     "dev": "ts-node-dev src/index.ts",
     "build": "tsc",
     "start": "node dist/index.js"
