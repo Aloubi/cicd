@@ -12,27 +12,23 @@ app.use(cors({
 
 app.use(express.json());
 
-app.use('/api/tasks', taskRoutes);
-
-// Endpoint de test
-app.get('/ping', (req, res) => {
+app.get('/ping', (_req, res) => {
   res.status(200).json({ message: 'pong' });
 });
 
-// ⚠️ Ne pas démarrer le serveur en test
-if (process.env.NODE_ENV !== 'test') {
-  sequelize.sync()
-    .then(() => {
-      console.log('✅ Database synchronized');
-      const PORT = process.env.PORT || 3001;
-      app.listen(PORT, () => {
-        console.log(`✅ Backend running on http://localhost:${PORT}`);
-      });
-    })
-    .catch((error) => {
-      console.error('❌ Failed to sync database:', error);
+app.use('/api/tasks', taskRoutes);
+
+// Démarrer le serveur seulement si ce fichier est exécuté directement
+if (require.main === module) {
+  sequelize.sync().then(() => {
+    console.log('✅ Database synchronized');
+    const PORT = process.env.PORT || 3001;
+    app.listen(PORT, () => {
+      console.log(`✅ Backend running on http://localhost:${PORT}`);
     });
+  }).catch((error) => {
+    console.error('❌ Failed to sync database:', error);
+  });
 }
 
-// ✅ On exporte `app` pour les tests
-export default app;
+export default app; // exporte l'app pour les tests

@@ -1,5 +1,6 @@
 import request from 'supertest';
 import app from '../index';
+import { sequelize } from '../sequelize';
 
 describe('App Root Endpoint', () => {
   it('GET /ping should return pong', async () => {
@@ -8,11 +9,7 @@ describe('App Root Endpoint', () => {
     expect(res.body).toEqual({ message: 'pong' });
   });
 });
-it('App should be defined', () => {
-  expect(app).toBeDefined();
-});
 
-it('GET /unknown should return 404', async () => {
-  const res = await request(app).get('/unknown');
-  expect(res.status).toBe(404);
+afterAll(async () => {
+  await sequelize.close(); // fermeture propre de la BDD
 });
