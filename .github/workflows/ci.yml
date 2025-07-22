@@ -29,11 +29,19 @@ jobs:
       - name: Run tests with coverage
         run: npm run test -- --coverage
 
+      - name: Ensure lcov.info exists
+        run: |
+          if [ ! -f coverage/lcov.info ]; then
+            echo "❌ lcov.info not found"; exit 1;
+          fi
+
       - name: Check if coverage >= 65%
         run: |
-          COVERAGE=$(npx coverage-percentage coverage/lcov.info)
-          echo "Total coverage: $COVERAGE%"
-          if (( $(echo "$COVERAGE < 65" | bc -l) )); then
+          TOTAL=$(grep -Po 'LF:\d+\nLH:\d+' coverage/lcov.info | paste -sd+ - | bc)
+          COVERED=$(grep -Po 'LH:\d+' coverage/lcov.info | cut -d: -f2 | paste -sd+ - | bc)
+          PERCENT=$(echo "scale=2; $COVERED*100/$TOTAL" | bc)
+          echo "Total coverage: $PERCENT%"
+          if (( $(echo "$PERCENT < 65" | bc -l) )); then
             echo "❌ Coverage is below 65%! Failing the build."
             exit 1
           else
