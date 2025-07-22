@@ -2,11 +2,9 @@ name: Build and Analyze
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
   pull_request:
-    branches:
-      - main
+    branches: [main]
 
 jobs:
   build:
@@ -29,7 +27,18 @@ jobs:
         run: npm ci
 
       - name: Run tests with coverage
-        run: npm run test
+        run: npm run test -- --coverage
+
+      - name: Check if coverage >= 65%
+        run: |
+          COVERAGE=$(npx coverage-percentage coverage/lcov.info)
+          echo "Total coverage: $COVERAGE%"
+          if (( $(echo "$COVERAGE < 65" | bc -l) )); then
+            echo "❌ Coverage is below 65%! Failing the build."
+            exit 1
+          else
+            echo "✅ Coverage is OK!"
+          fi
 
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@v2

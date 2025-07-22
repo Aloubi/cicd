@@ -1,0 +1,5 @@
+{
+  "devDependencies": {
+    "coverage-percentage": "^0.0.2"
+  }
+}
