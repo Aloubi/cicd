@@ -17,7 +17,7 @@ const createTask = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         const task = yield task_model_1.Task.create({ title });
         res.status(201).json(task);
     }
-    //
+    
     catch (error) {
         res.status(500).json({ error: 'Failed to create task' });
     }
