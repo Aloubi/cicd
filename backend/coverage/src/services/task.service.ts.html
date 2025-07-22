@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">91.3% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/23</span>
+                <span class='fraction'>21/23</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/8</span>
+                <span class='fraction'>8/8</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/13</span>
+                <span class='fraction'>13/13</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -86,48 +86,48 @@
 <a name='L21'></a><a href='#L21'>21</a>
 <a name='L22'></a><a href='#L22'>22</a>
 <a name='L23'></a><a href='#L23'>23</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">// src/services/task.service.ts
-<span class="cstat-no" title="statement not covered" >import { Task } from '../models/task.model';</span>
+import { Task } from '../models/task.model';
 &nbsp;
-export const <span class="cstat-no" title="statement not covered" >createTask = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >a</span>sync (d</span>ata: any) =&gt;<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" > {</span></span></span>
-<span class="cstat-no" title="statement not covered" >  return await Task.create(data);</span>
+export const createTask = async (data: any) =&gt; {
+  return await Task.create(data);
 };
 &nbsp;
-export const <span class="cstat-no" title="statement not covered" >getAllTasks = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >a</span>sync () =</span>&gt;<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" > {</span></span></span>
-<span class="cstat-no" title="statement not covered" >  return await Task.findAll();</span>
+export const getAllTasks = async () =&gt; {
+  return await Task.findAll();
 };
 &nbsp;
-export const <span class="cstat-no" title="statement not covered" >updateTask = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >a</span>sync (i</span>d: string, data: any) =&gt;<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" > {</span></span></span>
-  const task = <span class="cstat-no" title="statement not covered" >await Task.findByPk(Number(id));</span>
-<span class="cstat-no" title="statement not covered" >  <span class="missing-if-branch" title="if path not taken" >I</span>if (!task) <span class="cstat-no" title="statement not covered" >throw new Error('Task not found');</span></span>
-<span class="cstat-no" title="statement not covered" >  return await task.update(data);</span>
+export const updateTask = async (id: string, data: any) =&gt; {
+  const task = await Task.findByPk(Number(id));
+  <span class="missing-if-branch" title="if path not taken" >I</span>if (!task) <span class="cstat-no" title="statement not covered" >throw new Error('Task not found');</span>
+  return await task.update(data);
 };
 &nbsp;
-export const <span class="cstat-no" title="statement not covered" >deleteTask = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >a</span>sync (i</span>d: string) =&gt;<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" > {</span></span></span>
-  const task = <span class="cstat-no" title="statement not covered" >await Task.findByPk(Number(id));</span>
-<span class="cstat-no" title="statement not covered" >  <span class="missing-if-branch" title="if path not taken" >I</span>if (!task) <span class="cstat-no" title="statement not covered" >throw new Error('Task not found');</span></span>
-<span class="cstat-no" title="statement not covered" >  await task.destroy();</span>
+export const deleteTask = async (id: string) =&gt; {
+  const task = await Task.findByPk(Number(id));
+  <span class="missing-if-branch" title="if path not taken" >I</span>if (!task) <span class="cstat-no" title="statement not covered" >throw new Error('Task not found');</span>
+  await task.destroy();
 };
 &nbsp;</pre></td></tr></table></pre>
 
@@ -136,7 +136,7 @@ export const <span class="cstat-no" title="statement not covered" >deleteTask = 
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-07-22T11:07:12.946Z
+                at 2025-07-22T11:38:10.770Z
             </div>
         <script src="../../prettify.js"></script>
         <script>
