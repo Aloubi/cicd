@@ -8,3 +8,11 @@ describe('App Root Endpoint', () => {
     expect(res.body).toEqual({ message: 'pong' });
   });
 });
+it('App should be defined', () => {
+  expect(app).toBeDefined();
+});
+
+it('GET /unknown should return 404', async () => {
+  const res = await request(app).get('/unknown');
+  expect(res.status).toBe(404);
+});
