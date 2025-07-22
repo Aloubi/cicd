@@ -8,7 +8,7 @@ export const createTask = async (req: Request, res: Response) => {
     if (!title || typeof title !== 'string') {
       return res.status(400).json({ error: 'Title is required and must be a string' });
     }
-
+//
     const task = await Task.create({ title, completed: false });
     return res.status(201).json(task);
   } catch (error) {
