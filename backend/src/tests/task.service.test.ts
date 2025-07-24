@@ -54,3 +54,15 @@ describe('Task Service', () => {
     expect(mockTask.destroy).toHaveBeenCalled();
   });
 });
+
+import { isTaskCompleted } from '../services/task.service';
+
+describe('isTaskCompleted', () => {
+  it('should return true when task is completed', () => {
+    expect(isTaskCompleted({ completed: true })).toBe(true);
+  });
+
+  it('should return false when task is not completed', () => {
+    expect(isTaskCompleted({ completed: false })).toBe(false);
+  });
+});

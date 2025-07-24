@@ -20,3 +20,7 @@ export const deleteTask = async (id: string) => {
   if (!task) throw new Error('Task not found');
   await task.destroy();
 };
+
+export function isTaskCompleted(task: { completed: boolean }): boolean {
+  return task.completed;
+}
