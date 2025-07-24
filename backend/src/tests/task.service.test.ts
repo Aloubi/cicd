@@ -1,6 +1,4 @@
 // src/tests/task.service.test.ts
-// Tests unitaires pour les fonctions du service TaskService
-
 process.env.NODE_ENV = 'test';
 
 import * as TaskService from '../services/task.service';
@@ -46,6 +44,13 @@ describe('Task Service', () => {
     expect(Task.findByPk).toHaveBeenCalledWith(1);
     expect(mockTask.update).toHaveBeenCalledWith({ title: 'Updated' });
     expect(result).toEqual({ title: 'Updated' });
+  });
+
+  it('updateTask should throw if task not found', async () => {
+    (Task.findByPk as jest.Mock).mockResolvedValue(null);
+
+    await expect(TaskService.updateTask('99', { title: 'X' }))
+      .rejects.toThrow('Task not found');
   });
 
   it('deleteTask should call task.destroy', async () => {
