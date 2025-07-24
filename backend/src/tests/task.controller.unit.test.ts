@@ -2,7 +2,6 @@ import { Request, Response } from 'express';
 import * as TaskController from '../controllers/task.controller';
 import * as TaskService from '../services/task.service';
 
-// Mock explicite AVANT d’utiliser TaskService
 jest.mock('../services/task.service', () => ({
   createTask: jest.fn(),
   getAllTasks: jest.fn(),
@@ -10,12 +9,12 @@ jest.mock('../services/task.service', () => ({
   deleteTask: jest.fn()
 }));
 
-describe('Task Controller', () => {
+describe('Task Controller (unit)', () => {
   const mockRes = (): Response => {
     const res = {} as Response;
     res.status = jest.fn().mockReturnValue(res);
     res.json = jest.fn().mockReturnValue(res);
-    res.sendStatus = jest.fn().mockReturnValue(res); // ✅ pour éviter l’erreur
+    res.sendStatus = jest.fn().mockReturnValue(res);
     return res;
   };
 
@@ -74,6 +73,6 @@ describe('Task Controller', () => {
     await TaskController.deleteTask(req, res);
 
     expect(TaskService.deleteTask).toHaveBeenCalledWith('456');
-    expect(res.sendStatus).toHaveBeenCalledWith(204); // ✅ vérifie sendStatus
+    expect(res.sendStatus).toHaveBeenCalledWith(204);
   });
 });

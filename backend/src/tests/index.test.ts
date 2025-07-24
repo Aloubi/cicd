@@ -13,3 +13,11 @@ describe('App Root Endpoint', () => {
 afterAll(async () => {
   await sequelize.close(); // fermeture propre de la BDD
 });
+
+describe('GET /ping', () => {
+  it('should respond with pong', async () => {
+    const res = await request(app).get('/ping');
+    expect(res.statusCode).toBe(200);
+    expect(res.text).toContain('pong');
+  });
+});
