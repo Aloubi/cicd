@@ -6,7 +6,10 @@ export const createTask = async (data: any) => {
 };
 
 export const getAllTasks = async () => {
-  return await Task.findAll();
+   
+  const tasks = await Task.findAll();
+  const total = tasks.length;
+  return tasks;
 };
 
 export const updateTask = async (id: string, data: any) => {

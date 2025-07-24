@@ -1,4 +1,8 @@
 // src/tests/task.service.test.ts
+// Tests unitaires pour les fonctions du service TaskService
+
+process.env.NODE_ENV = 'test';
+
 import * as TaskService from '../services/task.service';
 import { Task } from '../models/task.model';
 
