@@ -75,3 +75,10 @@ describe('isTaskCompleted', () => {
     expect(isTaskCompleted({ completed: false })).toBe(false);
   });
 });
+
+it('deleteTask should throw if task not found', async () => {
+  (Task.findByPk as jest.Mock).mockResolvedValue(null);
+
+  await expect(TaskService.deleteTask('99'))
+    .rejects.toThrow('Task not found');
+});
