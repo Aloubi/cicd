@@ -54,3 +54,22 @@ jobs:
           projectBaseDir: backend
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+  deploy:
+    name: Deployment (simulé)
+    runs-on: ubuntu-latest
+    needs: build
+    # S'exécute même si le job "build" a échoué
+    if: always()
+    steps:
+      - name: Afficher le lien du frontend
+        run: |
+          echo "✅ Déploiement simulé terminé."
+          echo "🌐 Frontend : https://todo-frontend-hiba-fvcydre3cneybnfx.westeurope-01.azurewebsites.net"
+          {
+            echo "### ✅ Déploiement (simulé)"
+            echo ""
+            echo "Frontend : https://todo-frontend-hiba-fvcydre3cneybnfx.westeurope-01.azurewebsites.net"
+            echo ""
+            echo "_Ce stage passe toujours et n'effectue aucun déploiement._"
+          } >> $GITHUB_STEP_SUMMARY
