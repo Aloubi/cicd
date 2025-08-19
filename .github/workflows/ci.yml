@@ -1,4 +1,4 @@
-name: Build and Analyze
+name: Build, Analyze and Deploy
 
 on:
   push:
@@ -8,7 +8,7 @@ on:
 
 jobs:
   build:
-    name: Build and Analyze
+    name: Build, Analyze and Deploy
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -54,3 +54,20 @@ jobs:
           projectBaseDir: backend
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+      - name: 🔐 Azure Login
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: 🚀 Deploy to Azure App Service (todo-backend-hiba)
+        run: |
+          az webapp config container set \
+            --name todo-backend-hiba \
+            --resource-group todo-app-rg \
+            --docker-custom-image-name hibaaloubi/todo-app-backend:latest \
+            --docker-registry-server-url https://index.docker.io
+
+      - name: ✅ Print frontend URL
+        run: |
+          echo "🌐 Frontend disponible ici : https://todo-frontend-hiba-fvcydre3cneybnfx.westeurope-01.azurewebsites.net"
